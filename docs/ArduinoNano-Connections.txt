@@ -1,0 +1,34 @@
+        
+                 ARDUINO NANO
+             +-------------------+
+             +      |     |      +
+  LCD RS --- + D13  | USB |  D12 + --- LCD EN
+             +      |     |      +
+             + 3v3  +-----+ ~D11 + --- LCD D4
+             +                   +
+             + AREF         ~D10 + --- LCD D5
+             +                   +
+             + A0            ~D9 + --- LCD D6
+             +                   +
+             + A1             D8 + --- LCD D7
+             +                   +
+             + A2             D7 +
+             +                   +
+             + A3            ~D6 + --- DAH
+             +                   +
+             + A4            ~D5 + --- DIT
+             +                   +
+             + A5             D4 + --- ERROR LED
+             +                   +
+             + A6            ~D3 + --- SIGOUT
+             +                   +
+             + A7             D2 + 
+             +                   +
+ LCD VCC --- + 5V            GND + --- LCD VSS / LCD K
+             +                   +
+             + RESET       RESET +
+             +                   +
+  LCD RW --- + GND            D0 +
+             +                   +
+             + VIN            D1 +
+             +-------------------+

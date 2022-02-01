@@ -1,0 +1,84 @@
+OPENKEYER DEVELOPER NOTES
+=========================
+
+
+IMPORTANT
+---------
+In order to cut down on confusion, please read these notes and follow the
+guidance included in this document if you are planning to contribute to this
+project.
+
+
+OVERVIEW
+--------
+OpenKeyer is designed to be a modular system powered by a microcontroller.
+This does not mean that it is a plug and play system, where modules can be
+added or removed at anytime. Rather the modular components are decided on by
+the builder before the microcontroller code is compiled.
+
+THe builder can change the modules used, but the code needs to be appropriately
+modified, recompiled and then uploaded to the microcontroller. Not all modules
+will need specfic code, for instance the "sound" output modules merely work with
+the signal that is generated on the signal output pin (sigOut), no further code
+is needed for them.
+
+Due to the limited space available for programs on a microcontroller, and in
+order to facilitate as many different modules which require coding as possible,
+conditional compilation statements are used for any code that is for a specific
+module. This allows us to keep the size of the compiled code down, as sections
+of the code for modules that are not being used by the person building an
+OpenKeyer are not compiled. For thise that may be unfamliar, conditional
+compilation statements are similar to normal conditional statements, but they
+are formatted as follows:
+
+#if <SOME CONDITION>
+    // Do something
+#elif <SOME OTHER CONDITION>
+    // Do something else
+#else
+    // If all else fails do this thing
+#endif
+
+A simple DuckDuckGo or Google search will reveal all you need to know.
+
+CODING CONVENTIONS
+------------------
+
+General Guidelines
+------------------
+Please place any and all global variables, constants, function definitions, etc.
+in the appropriately labeled section of the code. This allows anyone debugging
+the ccode to know where to look for these items.
+
+Please leave two (2) blank lines between these sections, this helps to imprive
+readability.
+
+Indentation
+-----------
+While most of the Arduino development community uses 2 spaces to indent, in
+keeping with better readability, and C/C++ conventions, we use 4 spaces for
+indentation. Please ensure that any coding you have done is uploaded with the
+4 space indentation.
+
+Block Statements
+----------------
+Please ensure that any and all block statements, for, while, if, etc. use the
+folowing format:
+
+if(condition) {
+    // Conditional Code
+}
+
+Notice that 1) there is no space between 'if' and the opening parenthesis and
+that 2) the opening brace is on the same line, seperated from the closing
+parenthesis by a single space. Please do not put the opening brace on a line by
+itself. 3) The conditional code is indented from the previous line by 4 spaces
+and 4) the closing brace is on a line by itself, at the same identation level
+as the begining of the block. Also please be sure that there is at least one
+blank line before and after the code block.
+
+Comments
+--------
+Please comment your code. Other people working on the project should be able to
+see why you did things a certain way. Don't just assume that they will somehow
+magiacally know.

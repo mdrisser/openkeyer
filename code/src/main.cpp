@@ -9,15 +9,12 @@
  * 1 = Module present
  * 0 = Module not present
  */
-#define DISPLAY 1   // Any of the display modules, this MUST be 1 if using a display
-/*#define DSPTYP  1   // 1 = 16x2 LCD Display (Serial)
-                    // 2 = 20x4 LCD Display (Serial)
-                    // 3 = 0.96" OLED (I2C)
-                    // 4 = 16x2 LCD Display (I2C)
-                    // 5 = 20x4 LCD Display (I2C)*/
-#define OSC 0       // The twin-t oscillator module
-#define VISUAL 0    // The visual indicator module
-#define BATTERY 0   // The battery power module
+#define DISPLAY 1        // Any of the display modules, this MUST be 1 if using a display
+#define DISPLAYTYPE  1   // 1 = 16x2 LCD Display (Serial)
+                         // 2 = 20x4 LCD Display (Serial)
+                         // 3 = 0.96" OLED (I2C)
+                         // 4 = 16x2 LCD Display (I2C)
+                         // 5 = 20x4 LCD Display (I2C)
 
 /**
  * The following defines determine the timing of the generated sounds.
@@ -63,7 +60,9 @@
  * CONDITIONAL INCLUDES
  *****/
 #if DISPLAY
-    #include <LiquidCrystal.h>
+    #if DISPLAYTYPE == 1
+        #include <LiquidCrystal.h>
+    #endif
 #endif
 
 
@@ -77,23 +76,25 @@ const byte sigOut = 3;          // Signal output, to oscillator and/or visual in
 const byte errInd = 4;          // The pin that the error indicator LED is connected to
 
 #if DISPLAY
-    // The pins that the LCD Display is connected to
-    /*
-    *    LCD PIN <--> ARDUINO PIN
-    *        VSS <--> GND
-    *        VCC <--> 5V
-    *         V0 <--> 10k Pot <--> 3
-    *         RS <--> 13
-    *         RW <--> GND
-    *         EN <--> 12
-    *         D4 <--> 11
-    *         D5 <--> 10
-    *         D6 <--> 9
-    *         D7 <--> 8
-    *          A <--> 10K Pot <--> 5V
-    *          K <--> GND
-    */
-    const byte rs = 13, en = 12, d4 = 11, d5 = 10, d6 = 9, d7 = 8;
+    #if DISPLAYTYPE == 1
+        // The pins that the LCD Display is connected to
+        /*
+        *    LCD PIN <--> ARDUINO PIN
+        *        VSS <--> GND
+        *        VCC <--> 5V
+        *         V0 <--> 10k Pot <--> 3
+        *         RS <--> 13
+        *         RW <--> GND
+        *         EN <--> 12
+        *         D4 <--> 11
+        *         D5 <--> 10
+        *         D6 <--> 9
+        *         D7 <--> 8
+        *          A <--> 10K Pot <--> 5V
+        *          K <--> GND
+        */
+        const byte rs = 13, en = 12, d4 = 11, d5 = 10, d6 = 9, d7 = 8;
+    #endif
 #endif
 
 
@@ -101,7 +102,9 @@ const byte errInd = 4;          // The pin that the error indicator LED is conne
  * CLASS INSTANCES
  *****/
 #if DISPLAY
-    LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+    #if DISPLAYTYPE == 1
+        LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+    #endif
 #endif
 
 
@@ -207,8 +210,10 @@ void ready() {
     dah(); dit(); dah();        // K
 
     #if DISPLAY
-        lcd.setCursor(0, 1);
-        lcd.print("WPM: " + (String)WPM);
+        #if DISPLAYTYPE == 1
+            lcd.setCursor(0, 1);
+            lcd.print("WPM: " + (String)WPM);
+        #endif
     #endif
 }
 
@@ -250,10 +255,12 @@ void setup() {
 
     /* Setup the display, if we are using one */
     #if DISPLAY
-        debugln("Setting up the LCD display...");
-        lcd.begin(16, 2);
-        lcd.setCursor(0, 0);
-        lcd.print("OpenKeyer v." + OKVER);
+        #if DISPLAYTYPE == 1
+            debugln("Setting up the LCD display...");
+            lcd.begin(16, 2);
+            lcd.setCursor(0, 0);
+            lcd.print("OpenKeyer v." + OKVER);
+        #endif
     #endif
 
     ready();  // We're ready to go

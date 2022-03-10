@@ -11,3 +11,4 @@ The other modules are:
 - Square-wave oscillator: Uses a 555 timer to produce the tone. Not as pleasant to listen to as a sine wave oscillator, but I will be providing the schematics to incorporate it anyway.
 - LED Indicator: Provides a visual indication of the code elements being sent.
 - Battery Module: Provides power to the keyer through the use of batteries, allowing the keyer to be more portable.
+- Memory: Will allow for storing and replaying morse code strings, such as call sign, SKCC/FISTS/NAQCC number, etc.
